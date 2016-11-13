@@ -1,116 +1,114 @@
-
+/*
+ * The design of the interface  of simulator	YongqGui
+ */
 package gui_test;
 
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.*;
+import java.awt.event.*;
 
-import gui.DTNSimGUI;
-import gui.EventLogPanel;
-import gui.GUIControls;
-import gui.InfoPanel;
-import gui.NodeChooser;
-import gui.SimMenuBar;
-import gui.playfield.PlayField;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-
-import core.Settings;
-import core.World;
-
-/**
- * Main window for the program. Takes care of layouting the main components
- * in the window.
- */
 public class Main_Window extends JFrame {
-	/** The namespace for general GUI settings */
-	public static final String GUI_NS = "GUI";
-	
-	/** Main window settings namespace ({@value}) */
-	public static final String GUI_WIN_NS = GUI_NS + ".window";
-	
-	/** Window width -setting id ({@value}). Defines the width of the GUI 
-	 * window. Default {@link #WIN_DEFAULT_WIDTH} */
-	public static final String WIN_WIDTH_S = "width";
-	/** Window height -setting id ({@value}). Defines the height of the GUI 
-	 * window. Default {@link #WIN_DEFAULT_HEIGHT} */
-	public static final String WIN_HEIGHT_S = "height";
-
 	/** Default width for the GUI window */
 	public static final int WIN_DEFAULT_WIDTH = 900;
 	/** Default height for the GUI window */
 	public static final int WIN_DEFAULT_HEIGHT = 700;
-	
-	public static final String WINDOW_TITLE = "ONE";
-	/** log panel's initial weight in the split panel */
-	private static final double SPLIT_PANE_LOG_WEIGHT = 0.2;
-	
-	private JScrollPane playFieldScroll;
-	
-    public Main_Window(String scenName, World world, PlayField field,
-    		GUIControls guiControls, InfoPanel infoPanel,
-    		EventLogPanel elp, DTNSimGUI gui) {    	
-    	super(WINDOW_TITLE + " - " + scenName);		//	设置GUI界面名称
-    	JFrame.setDefaultLookAndFeelDecorated(true);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-        JPanel leftPane = new JPanel();       
-        leftPane.setLayout(new BoxLayout(leftPane,BoxLayout.Y_AXIS));	//	沿着Y轴进行布局
-    	JScrollPane hostListScroll;     
-        JSplitPane fieldLogSplit;			//JSplitPane 为分割线
-        JSplitPane logControlSplit;
-        JSplitPane mainSplit;
-        Settings s = new Settings(GUI_WIN_NS);
-        NodeChooser chooser = new NodeChooser(world.getHosts(),gui);	//	chooser为节点选择控件
-        
-    	setLayout(new BorderLayout());
-        setJMenuBar(new SimMenuBar(field, chooser));
-        
-        playFieldScroll = new JScrollPane(field);
-        playFieldScroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, 
-        		Integer.MAX_VALUE));
-        
-        hostListScroll = new JScrollPane(chooser);
-        
-        hostListScroll.setHorizontalScrollBarPolicy(
-        		JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        logControlSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-        		new JScrollPane(elp.getControls()),new JScrollPane(elp));	//	设定水平分割线
-        logControlSplit.setResizeWeight(0.1);								//	设置splitPane1的分隔线位置，0.1是相对于splitPane1的大小而定。
-        logControlSplit.setOneTouchExpandable(true);
-        
-        fieldLogSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-        		leftPane, logControlSplit);
-        fieldLogSplit.setResizeWeight(1-SPLIT_PANE_LOG_WEIGHT);
-        fieldLogSplit.setOneTouchExpandable(true);
-        
-        setPreferredSize(new Dimension(
-        		s.getInt(WIN_WIDTH_S, WIN_DEFAULT_WIDTH), 
-        		s.getInt(WIN_HEIGHT_S, WIN_DEFAULT_HEIGHT)));
+	private static JSplitPane JSP1;
+	private static JSplitPane JSP2;
+	private static JSplitPane JSP3;
 
-        leftPane.add(guiControls);
-        leftPane.add(playFieldScroll);
-        leftPane.add(infoPanel);
-        
-        mainSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, 
-        		fieldLogSplit, hostListScroll);
-        mainSplit.setOneTouchExpandable(true);
-        mainSplit.setResizeWeight(0.8);    
-        this.getContentPane().add(mainSplit);
-        
-        pack();
-    }
+ 
+	public Main_Window() {
+		super("卫星仿真系统   copyright by USTC");
+		setSize(WIN_DEFAULT_WIDTH,WIN_DEFAULT_HEIGHT);
+		
+	    JPanel desktop = new JPanel();
+	    getContentPane().add(desktop);
+	    
+	    final JMenu[] menus = {
+	    		new JMenu("File   "), new JMenu("Edit   "),
+				new JMenu("Properties   "),new JMenu("Tools   "),
+				new JMenu("Windows   "),new JMenu("Help   "),
+	    };
+	    final JMenuItem[] items = {
+			  	new JMenuItem("Fee"), new JMenuItem("Fi"),
+				new JMenuItem("Fo"),  new JMenuItem("Zip"),
+				new JMenuItem("Zap"), new JMenuItem("Zot"),
+				new JMenuItem("Olly"), new JMenuItem("Oxen"),
+				new JMenuItem("Free"), new JMenuItem("Zot"),
+				new JMenuItem("Olly"), new JMenuItem("Oxen"),
+				new JMenuItem("Olly"), new JMenuItem("Oxen"),
+				new JMenuItem("Free"),
+	    };
+	    for (int i=0;i<items.length; i++){
+			menus[i%6].add(items[i]);
+	    };
+	    JMenuBar mb = new JMenuBar();
+	    for (JMenu jm:menus){
+	    	mb.add(jm);
+	    };
+	    JPanel fileMenus = new JPanel();
+	    fileMenus.setLayout(new GridLayout(2,1));
+	    fileMenus.add(mb);
+	    
+	    //设置用来放置一排按钮,这里和第一排肯定要用两个面板
+	    JButton start = new JButton("开始");
+	    JButton end = new JButton("结束");
+	    JButton parameter = new JButton("参数");
+        parameter.addActionListener(new ActionListener() {	//按钮出来之后要弹出参数配置界面
+            public void actionPerformed(ActionEvent e) {
+                new RouterInfo();
+            }
+        });
+	    
+	    JPanel ButtonMenus = new JPanel();
+	    ButtonMenus.setLayout(new BoxLayout(ButtonMenus, BoxLayout.X_AXIS));
+	    ButtonMenus.add(start);
+	    ButtonMenus.add(end);
+	    ButtonMenus.add(parameter);
+	    fileMenus.add(ButtonMenus);
+	    
+	  
+	    //---------------------------设置节点列表----------------------------//	  	
+	    JPanel NodeList = new JPanel();
+	    NodeList.setLayout(new GridLayout(20,1));
+	    NodeList.setBorder(new TitledBorder("Nodes"));
+	    for (int i = 0; i<20; i++)
+	    	NodeList.add(new JButton("Node" + i));
+	  
+	  
+	    JLabel label1=new JLabel("Label 1",JLabel.CENTER);  
+ 
+	    //---------------------------设置事件窗口----------------------------//	 
+	    JScrollPane EventLog = new JScrollPane();
+	    EventLog.setBorder(new TitledBorder("输出事件窗口"));
+	    EventLog.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-    /**
-     * Returns a reference of the play field scroll panel
-     * @return a reference of the play field scroll panel
-     */
-    public JScrollPane getPlayFieldScroll() {
-    	return this.playFieldScroll;
-    }
+	    
+	    JSP1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,false,label1,EventLog);
+	    JSP1.setResizeWeight(0.8);												//设置splitPane1的分隔线位置，0.1是相对于splitPane1的大小而定。
+	    JSP2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,false,JSP1,NodeList);
+	  	JSP2.setResizeWeight(0.99);
+	  	JSP3 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,false,fileMenus,JSP2);	
+	  	JSP3.setResizeWeight(0.01);
+
+	  }
+
+	  public static void main(String[] args) throws Exception {
+		    JFrame frame = new Main_Window();
+		    frame.add(JSP3);
+		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		    frame.setVisible(true);		    
+	  }
+	  
 }
+
+
+
+
+
+

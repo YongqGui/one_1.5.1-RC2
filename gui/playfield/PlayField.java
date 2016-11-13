@@ -28,6 +28,7 @@ import core.World;
 
 /**
  * The canvas where node graphics and message visualizations are drawn.
+ * 								显示节点与消息的画布
  *
  */
 public class PlayField extends JPanel {

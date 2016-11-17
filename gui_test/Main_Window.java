@@ -1,5 +1,5 @@
 /*
- * The design of the interface  of simulator	YongqGui
+ * The design of the interface  of simulator by	YongqGui
  */
 package gui_test;
 

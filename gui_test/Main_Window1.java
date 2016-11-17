@@ -58,7 +58,7 @@ public class Main_Window1 extends JFrame {
 	  mb.add(help);
 	  */
 	  
-	//---------------------------设置节点列表----------------------------//	  	
+	  //---------------------------设置节点列表----------------------------//	  	
 	  JPanel jpane1 = new JPanel();
 	  jpane1.setLayout(new GridLayout(20,1));
 	  for (int i = 0; i<20; i++)

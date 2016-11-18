@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import Develop.Main_Window;
+import Develop.OneSimUI;
 import ui.DTNSimTextUI;
 
 /**
@@ -102,15 +103,14 @@ public class DTNSim {
 			//new DTNSimGUI().start();
 			
 			Settings.setRunIndex(guiIndex);
-			DSG = new DTNSimTextUI();
-			/**初始化图形界面*/
-			theApplet = new Main_Window();
-			theApplet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			theApplet.setVisible(true);	
-			/**初始化图形界面*/
-		//	DSG.start(/*config*/);
-			//DSG.runSim();
-			
+//			DSG = new DTNSimTextUI();
+//			
+//			/**初始化图形界面*/
+//			theApplet = new Main_Window();
+//			theApplet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//			theApplet.setVisible(true);	
+			new OneSimUI().start();
+
 		}
 	}
 	

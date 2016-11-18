@@ -71,21 +71,23 @@ public abstract class DTNSimUI {
 	
 	/**
 	 * Starts the simulation.
+	 * @throws InterruptedException 
 	 */
-	public void start() {
+	public void start()  {
 		initModel();
 		runSim();
 	}
 	
 	/**
 	 * Runs simulation after the model has been initialized.
+	 * @throws InterruptedException 
 	 */
 	protected abstract void runSim();
 	
 	/**
 	 * Initializes the simulator model.
 	 */
-	private void initModel() {
+	public void initModel() {
 		Settings settings = null;
 				
 		try {

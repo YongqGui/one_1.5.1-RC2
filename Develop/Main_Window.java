@@ -10,23 +10,27 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.*;
+
 import java.awt.event.*;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+//import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 
-public class Main_Window extends JFrame {
+public class Main_Window extends JFrame implements ActionListener, ChangeListener{
 	/** Default width for the GUI window */
 	public static final int WIN_DEFAULT_WIDTH = 900;
 	/** Default height for the GUI window */
 	public static final int WIN_DEFAULT_HEIGHT = 700;
-	orbitviewerEvents newListener = new orbitviewerEvents(this);								// 实现监听器作用
+	
+	
 	public JButton start;
 	public JButton end;
+	public JButton pause;
 	private static JSplitPane JSP1;
 	private static JSplitPane JSP2;
 	private static JSplitPane JSP3;
-
- 
+	protected boolean simPaused = true;
+	public ActionListener e;
+	
 	public Main_Window() {
 		super("卫星仿真系统   copyright by USTC");
 		setSize(WIN_DEFAULT_WIDTH,WIN_DEFAULT_HEIGHT);
@@ -62,10 +66,12 @@ public class Main_Window extends JFrame {
 	    
 	    //设置用来放置一排按钮,这里和第一排肯定要用两个面板
 	    start = new JButton("开始");
-		start.addActionListener(newListener);
-		
+		start.addActionListener(this);
 	    end = new JButton("结束");
-	    end.addActionListener(newListener);
+	    end.addActionListener(this);
+	    pause = new JButton("暂停");
+	    pause.addActionListener(this);
+	    
 	    JButton parameter = new JButton("参数");
         parameter.addActionListener(new ActionListener() {	//按钮出来之后要弹出参数配置界面
             public void actionPerformed(ActionEvent e) {
@@ -77,6 +83,7 @@ public class Main_Window extends JFrame {
 	    ButtonMenus.setLayout(new BoxLayout(ButtonMenus, BoxLayout.X_AXIS));
 	    ButtonMenus.add(start);
 	    ButtonMenus.add(end);
+	    ButtonMenus.add(pause);
 	    ButtonMenus.add(parameter);
 	    fileMenus.add(ButtonMenus);
 	    
@@ -107,6 +114,31 @@ public class Main_Window extends JFrame {
 	  	add(JSP3);
 	}
 	  
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.start) {
+//			OneThread NewThread = new OneThread();  
+//			Thread thread = new Thread(NewThread);  
+//			thread.start(); 
+			this.simPaused = false;
+		}
+		else if (e.getSource() == this.end){
+			System.exit(0);
+		}
+		else if (e.getSource() == this.pause){
+			this.simPaused = true;
+		}
+
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean getPaused(){
+		return this.simPaused;
+	}
 }
 
 

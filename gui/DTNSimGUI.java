@@ -95,18 +95,18 @@ public class DTNSimGUI extends DTNSimUI {
 	}
 	
 	@Override
-	protected void runSim() {
+	public void runSim() {
 		double simTime = SimClock.getTime();
 		double endTime = scen.getEndTime();
 		
-		startGUI();
+		//startGUI();
 		
 		// Startup DTN2Manager
 		// XXX: Would be nice if this wasn't needed..
 		DTN2Manager.setup(world);
 		
 		while (simTime < endTime && !simCancelled){
-			if (guiControls.isPaused()) {
+			if (false/*guiControls.isPaused()*/) {
 				wait(10); // release CPU resources when paused
 			}
 			else {
@@ -118,7 +118,7 @@ public class DTNSimGUI extends DTNSimUI {
 				}
 				simTime = SimClock.getTime();
 			}
-			this.update(false);
+			//this.update(false);
 		}
 		
 		simDone = true;

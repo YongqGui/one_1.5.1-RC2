@@ -1,13 +1,17 @@
 /*
  * The design of the interface  of simulator by	YongqGui
  */
-package gui_test;
+package Develop;
+
+//import jat.application.orbitviewer.orbitviewerEvents;
 
 import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.*;
 import java.awt.event.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 
 public class Main_Window extends JFrame {
@@ -15,8 +19,9 @@ public class Main_Window extends JFrame {
 	public static final int WIN_DEFAULT_WIDTH = 900;
 	/** Default height for the GUI window */
 	public static final int WIN_DEFAULT_HEIGHT = 700;
-
-
+	orbitviewerEvents newListener = new orbitviewerEvents(this);								// 实现监听器作用
+	public JButton start;
+	public JButton end;
 	private static JSplitPane JSP1;
 	private static JSplitPane JSP2;
 	private static JSplitPane JSP3;
@@ -56,8 +61,11 @@ public class Main_Window extends JFrame {
 	    fileMenus.add(mb);
 	    
 	    //设置用来放置一排按钮,这里和第一排肯定要用两个面板
-	    JButton start = new JButton("开始");
-	    JButton end = new JButton("结束");
+	    start = new JButton("开始");
+		start.addActionListener(newListener);
+		
+	    end = new JButton("结束");
+	    end.addActionListener(newListener);
 	    JButton parameter = new JButton("参数");
         parameter.addActionListener(new ActionListener() {	//按钮出来之后要弹出参数配置界面
             public void actionPerformed(ActionEvent e) {
@@ -96,14 +104,8 @@ public class Main_Window extends JFrame {
 	  	JSP3 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,false,fileMenus,JSP2);	
 	  	JSP3.setResizeWeight(0.01);
 
-	  }
-
-	  public static void main(String[] args) throws Exception {
-		    JFrame frame = new Main_Window();
-		    frame.add(JSP3);
-		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		    frame.setVisible(true);		    
-	  }
+	  	add(JSP3);
+	}
 	  
 }
 

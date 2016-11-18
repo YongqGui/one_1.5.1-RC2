@@ -12,6 +12,7 @@ import java.util.Map;
 import core.DTNHost;
 import core.Message;
 import core.MessageListener;
+import core.SimClock;
 
 /**
  * Report for generating different kind of total statistics about message
@@ -99,6 +100,7 @@ public class MessageStatsReport extends Report implements MessageListener {
 
 		this.nrofRelayed++;
 		if (finalTarget) {
+			//System.out.println("消息来源节点："+m.getFrom()+"  "+"消息目的节点："+m.getTo()+"  "+"当前仿真时间："+SimClock.getIntTime());
 			this.latencies.add(getSimTime() - 
 				this.creationTimes.get(m.getId()) );
 			this.nrofDelivered++;

@@ -108,9 +108,5 @@ public class MainWindow extends JFrame {
     public JScrollPane getPlayFieldScroll() {
     	return this.playFieldScroll;
     }
-    /* 试运行界面效果，但是参数输入不对。
-    public static void main(String[] args) {
-        run(new MainWindow());
-      }
-    */
+    
 }

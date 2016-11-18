@@ -1,7 +1,7 @@
 /*
  * The design of the interface  of simulator by	YongqGui
  */
-package gui_test;
+package Develop;
 
 import java.awt.*;
 

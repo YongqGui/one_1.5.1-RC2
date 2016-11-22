@@ -14,16 +14,15 @@ import core.SimClock;
 public class OneSimUI extends DTNSimTextUI{
 	private long lastUpdateRt;		// real time of last ui update
 	private long startTime; 		// simulation start time
-	
+
 	/** How often the UI view is updated (milliseconds) */     
 	public static final long UI_UP_INTERVAL = 60000;
 	public static Main_Window main =new Main_Window();
-	//ViewEvents ve = main.newListener;
 
 	/**
 	 * Initializes the simulator model.
 	 */
-	private void initModel1() {
+	private void NewWindow() {
 		/**初始化图形界面*/
 		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main.setVisible(true);	
@@ -42,7 +41,7 @@ public class OneSimUI extends DTNSimTextUI{
 			SwingUtilities.invokeAndWait(new Runnable() {
 			    public void run() {
 					try {
-						initModel1();
+						NewWindow();
 					} catch (AssertionError e) {
 						processAssertionError(e);
 					}
@@ -64,17 +63,16 @@ public class OneSimUI extends DTNSimTextUI{
 
 	@Override
 	public void runSim(){
+		
 		double simTime = SimClock.getTime();
-		double endTime = 360000;//scen.getEndTime();
-	
+		double endTime = scen.getEndTime();
+		
 		startGUI();
-
+		
 		startTime = System.currentTimeMillis();
 		lastUpdateRt = startTime;
 	
-		while (simTime < endTime && !simCancelled){
-			//System.out.println("是否会暂停："+main.getPaused());
-			
+		while (simTime < endTime && !simCancelled){			
 			if (main.getPaused()) {
 				try {
 					 synchronized (this){

@@ -34,6 +34,10 @@ public class InfoPanel extends JPanel implements ActionListener{
 		this.gui = gui;
 		reset();
 	}
+	//----------------------------------重写构造函数--------------------------------	//
+	public InfoPanel(){
+		reset();
+	}
 	
 	private void reset() {
 		this.removeAll();

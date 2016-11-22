@@ -32,8 +32,8 @@ public class DTNSim {
 	private static List<Class<?>> resetList = new ArrayList<Class<?>>();
 	
 	//------------------------界面修改--------------------------//
-	private static DTNSimTextUI DSG;
-	private static Main_Window theApplet;
+	//	private static DTNSimTextUI DSG;
+	//	private static Main_Window theApplet;
 	
 	
 	//------------------------界面修改--------------------------//
@@ -98,19 +98,9 @@ public class DTNSim {
 			double duration = (System.currentTimeMillis() - startTime)/1000.0;
 			print("---\nAll done in " + String.format("%.2f", duration) + "s");
 		}
-		else {
-			//Settings.setRunIndex(guiIndex);
-			//new DTNSimGUI().start();
-			
+		else {		
 			Settings.setRunIndex(guiIndex);
-//			DSG = new DTNSimTextUI();
-//			
-//			/**初始化图形界面*/
-//			theApplet = new Main_Window();
-//			theApplet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//			theApplet.setVisible(true);	
 			new OneSimUI().start();
-
 		}
 	}
 	

@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.border.TitledBorder;
 
 import core.Settings;
 import core.World;
@@ -91,6 +92,7 @@ public class MainWindow extends JFrame {
         leftPane.add(guiControls);
         leftPane.add(playFieldScroll);
         leftPane.add(infoPanel);
+        //leftPane.setBorder(new TitledBorder("输出事件窗口"));
         
         mainSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, 
         		fieldLogSplit, hostListScroll);

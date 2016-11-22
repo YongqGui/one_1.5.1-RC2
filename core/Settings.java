@@ -7,6 +7,7 @@ package core;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Constructor;
@@ -880,6 +881,37 @@ public class Settings {
 	 */
 	public String toString() {
 		return props.toString();
+	}
+	
+	/**写入配置文件函数*/
+	public void setSetting(String file_location,String name,String value) {
+		try {
+		File file = new File(file_location/*"C:\\Users\\Administrator\\Desktop\\one\\src\\one_\\default_settings.txt"*/);
+		if(!file.exists()) {
+			file.createNewFile();
+		}
+		FileInputStream fis = new FileInputStream(file);
+		
+		if(props == null) {
+			props = new Properties();
+		}
+		props.load(fis);
+		
+		
+		props.setProperty(name, value);
+		
+		FileOutputStream fos = new FileOutputStream(file);
+		
+		String comments = "-----------------";
+		
+		props.store(fos, comments);
+		
+		fis.close();
+		fos.close();
+		}
+		catch(IOException e) {
+			System.out.println("IOException Error!");
+		}
 	}
 	
 }

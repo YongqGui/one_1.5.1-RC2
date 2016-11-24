@@ -15,6 +15,8 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.*;
 
+import ui.DTNSimTextUI;
+
 import java.awt.event.*;
 
 //import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -30,6 +32,7 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	public JButton start;
 	public JButton end;
 	public JButton pause;
+	public JButton report;
 	private static JSplitPane JSP1;
 	private static JSplitPane JSP2;
 	private static JSplitPane JSP3;
@@ -37,7 +40,7 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	public ActionListener e;
 
 	
-	public Main_Window() {
+	public Main_Window(EventLog elp) {
 		super("卫星仿真系统");										//   copyright by USTC");
 		setSize(WIN_DEFAULT_WIDTH,WIN_DEFAULT_HEIGHT);
 		
@@ -77,6 +80,8 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	    pause.addActionListener(this);
 	    end = new JButton("结束");
 	    end.addActionListener(this);
+	    report = new JButton("报告");
+	    report.addActionListener(this);
 	    
 	    JButton parameter = new JButton("参数");
         parameter.addActionListener(new ActionListener() {	//按钮出来之后要弹出参数配置界面
@@ -90,6 +95,7 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	    ButtonMenus.add(start);
 	    ButtonMenus.add(pause);
 	    ButtonMenus.add(end);
+	    ButtonMenus.add(report);
 	    ButtonMenus.add(parameter);
 	    fileMenus.add(ButtonMenus);
 	    
@@ -108,13 +114,13 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	    JPanel Event = new JPanel();
         Event.setLayout(new BoxLayout(Event,BoxLayout.Y_AXIS));	//	沿着Y轴进行布局
 	    
-        JScrollPane EventLog = new JScrollPane();
-	    EventLog.setBorder(new TitledBorder("输出事件窗口"));
-	    EventLog.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//      JScrollPane EventLog = new JScrollPane();
+//	    EventLog.setBorder(new TitledBorder("输出事件窗口"));
+//	    EventLog.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
-	    //InfoPanel infoPanel = new InfoPanel();			// 原有系统事件窗口
-	    DTNSimGUI gui = new DTNSimGUI();
-		EventLogPanel elp = new EventLogPanel(gui); 		// 原有系统事件窗口
+//      DTNSimTextUI gui = new DTNSimTextUI();
+//		EventLog elp = new EventLog(null); 		// 原有系统事件窗口
+		
 	    JSP1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,false,label1,new JScrollPane(elp));
 	    JSP1.setResizeWeight(0.8);							//设置splitPane1的分隔线位置，0.1是相对于splitPane1的大小而定。
 	    

@@ -1,8 +1,8 @@
-/* 
- * Copyright 2010 Aalto University, ComNet
- * Released under GPLv3. See LICENSE.txt for details. 
- */
-package gui;
+package Develop;
+
+import gui.DTNSimGUI;
+import gui.EventLogControl;
+import gui.EventLogControlPanel;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -30,11 +30,11 @@ import core.SimClock;
 /**
  * Event log panel where log entries are displayed.
  */
-public class EventLogPanel extends JPanel 
+public class EventLog extends JPanel 
 	implements ConnectionListener, MessageListener, ActionListener {
 
 	/** Event log panel settings namespace ({@value}) */
-	public static final String EL_PANEL_NS = "GUI.EventLogPanel";
+	public static final String EL_PANEL_NS = "GUI.EventLog";
 	
 	/** Number of events -setting id ({@value}). Defines the number of
 	 * events to show in the panel. */
@@ -68,7 +68,7 @@ public class EventLogPanel extends JPanel
 	private int maxNrofEvents;
 	
 	private Font font;	// font used in log entries
-	private DTNSimGUI gui;
+	private DTNSimTextUI gui;
 	private Vector<JPanel> eventPanes;
 	private GridLayout layout;
 	
@@ -87,7 +87,8 @@ public class EventLogPanel extends JPanel
 	 * Creates a new log panel
 	 * @param gui The where this log belongs to (for callbacks) 
 	 */
-	public EventLogPanel(DTNSimGUI gui) {
+	public EventLog(DTNSimTextUI gui) {
+
 		this.gui = gui;
 		String title = PANEL_TITLE;
 		Settings s = new Settings(EL_PANEL_NS);
@@ -115,9 +116,12 @@ public class EventLogPanel extends JPanel
 			public void actionPerformed(ActionEvent evt) {
 		          updateLogView();
 		      }
-		  };
+			
+		};
+		
 		  Timer t = new Timer(LOG_UP_INTERVAL, taskPerformer);
 		  t.start();
+
 	}
 
 	/**
@@ -197,8 +201,10 @@ public class EventLogPanel extends JPanel
 	 */
 	private void updateLogView() {
 		//TODO Optimization: Check if update is really necessary
+		//System.out.println("测试输出窗口！！！");
 		this.removeAll();
-		for (int i=0; i< this.eventPanes.size(); i++) {
+
+		for (int i = 0; i< this.eventPanes.size(); i++) {
 			this.add(eventPanes.get(i));
 		}
 		revalidate();
@@ -249,16 +255,14 @@ public class EventLogPanel extends JPanel
 			return;	// description doesn't match defined regular expression
 		}
 		
-		if (check.pauseOnEvent()) {
-			gui.setPaused(true);
-			if (host1 != null) {
-				gui.setFocus(host1);
-			}
-		}
+//		if (check.pauseOnEvent()) {
+//			gui.setPaused(true);
+//			if (host1 != null) {
+//				gui.setFocus(host1);
+//			}
+//		}
 		
       	addEvent(name, host1, host2, message, check.pauseOnEvent());	
-      	//-------------------------- 想输出事件内容  -------------------------//
-      	System.out.println(name+"  "+host1+"  "+host2+"  "+message);
       	
 	}
 	
@@ -317,15 +321,15 @@ public class EventLogPanel extends JPanel
 	public void actionPerformed(ActionEvent e) {
 		JButton source = (JButton)e.getSource();
 		
-		if (source.getClientProperty(HOST_PROP) != null) {
-			// button was a host button -> focus it on GUI
-			gui.setFocus((DTNHost)source.getClientProperty(HOST_PROP));
-		}
-		else if (source.getClientProperty(MSG_PROP) != null) {
-			// was a message button -> show information about the message
-			Message m = (Message)source.getClientProperty(MSG_PROP);
-			gui.getInfoPanel().showInfo(m);
-		}
+//		if (source.getClientProperty(HOST_PROP) != null) {
+//			// button was a host button -> focus it on GUI
+//			gui.setFocus((DTNHost)source.getClientProperty(HOST_PROP));
+//		}
+//		else if (source.getClientProperty(MSG_PROP) != null) {
+//			// was a message button -> show information about the message
+//			Message m = (Message)source.getClientProperty(MSG_PROP);
+//			gui.getInfoPanel().showInfo(m);
+//		}
 	}
 	
 	public String toString() {

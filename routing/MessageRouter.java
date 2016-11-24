@@ -340,7 +340,7 @@ public abstract class MessageRouter {
 		boolean isFinalRecipient;
 		boolean isFirstDelivery; // is this first delivered instance of the msg
 		
-		System.out.println("当前接收到的消息："+incoming.getFrom()+"  "+"  "+"当前节点："+this.getHost());
+		//System.out.println("当前接收到的消息："+incoming.getFrom()+"  "+"  "+"当前节点："+this.getHost());
 		
 		if (incoming == null) {
 			throw new SimError("No message with ID " + id + " in the incoming "+

@@ -99,7 +99,7 @@ public class DTNSimGUI extends DTNSimUI {
 		double simTime = SimClock.getTime();
 		double endTime = scen.getEndTime();
 		
-		//startGUI();
+		startGUI();
 		
 		// Startup DTN2Manager
 		// XXX: Would be nice if this wasn't needed..

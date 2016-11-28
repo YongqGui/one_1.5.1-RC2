@@ -21,7 +21,7 @@ import java.awt.event.*;
 
 //import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 //import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
-//import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 
 public class Main_Window extends JFrame implements ActionListener, ChangeListener{
 	/** Default width for the GUI window */
@@ -41,7 +41,7 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 
 	
 	public Main_Window(EventLog elp) {
-		super("卫星仿真系统");										//   copyright by USTC");
+		super("卫星仿真系统");
 		setSize(WIN_DEFAULT_WIDTH,WIN_DEFAULT_HEIGHT);
 		
 	    JPanel desktop = new JPanel();
@@ -131,7 +131,7 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	  	JSP3.setResizeWeight(0.01);
 
 	  	add(JSP3);
-//		UIManager.setLookAndFeel(javax.swing.plaf.metal.MetalLookAndFeel);							//	设置皮肤
+//	  	UIManager.setLookAndFeel(javax.swing.plaf.metal.MetalLookAndFeel);				//	设置皮肤
 //	  	SwingUtilities.updateComponentTreeUI(com.sun.java.swing.plaf.windows.WindowsLookAndFeel);
 	}
 	  

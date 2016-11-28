@@ -111,19 +111,16 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 	    g.add(rb1);
 	    g.add(rb2);
 	    
-	    JPanel rjsp1 = new JPanel();
-	    rjsp1.setLayout(new BoxLayout(rjsp1, BoxLayout.X_AXIS));
-	    rjsp1.add(rlabel1);
-	    rjsp1.add(Box.createHorizontalStrut(30));
-	    rjsp1.add(rlabel2);
-		rjsp1.add(rb1);
-	    rjsp1.add(Box.createHorizontalStrut(5));
-	    rjsp1.add(rlabel3);
-		rjsp1.add(rb2);
-		rjsp1.add(Box.createHorizontalGlue());
-		rjsp1.add(Box.createHorizontalStrut(55));
-		
-		
+		rlabel1.setBounds(10, 65, 100, 30);
+		rlabel2.setBounds(131,65, 55, 30);
+		rb1.setBounds(189,65, 20, 30);
+		rlabel3.setBounds(215,65, 55, 30);
+		rb2.setBounds(272,65,20, 30);
+		RouteFirst.add(rlabel1);
+		RouteFirst.add(rlabel2);
+		RouteFirst.add(rlabel3);
+		RouteFirst.add(rb1);
+		RouteFirst.add(rb2);
 		//第三行 		
 		JLabel qlabel1 = new JLabel("发送队列模式：",JLabel.LEFT);
 		JLabel qlabel2 = new JLabel("Random",JLabel.LEFT);
@@ -134,10 +131,10 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 	    q.add(qb1);
 	    q.add(qb2);
 	    qlabel1.setBounds(10, 105, 100, 30);
-	    qlabel2.setBounds(131,105, 50, 30);
-	    qb1.setBounds(184,105, 20, 30);
-	    qlabel3.setBounds(210,105, 50, 30);
-	    qb2.setBounds(262,105,20, 30);
+	    qlabel2.setBounds(131,105, 55, 30);
+	    qb1.setBounds(189,105, 20, 30);
+	    qlabel3.setBounds(215,105, 55, 30);
+	    qb2.setBounds(272,105,20, 30);
 	    
 		RouteFirst.add(qlabel1);
 		RouteFirst.add(qlabel2);
@@ -219,12 +216,12 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		RouteFirst.add(label72);
 	    
 		jsp1.setBounds(10, 20, 300, 30);
-		rjsp1.setBounds(10, 65, 300, 30);
+		//rjsp1.setBounds(10, 65, 300, 30);
 		jsp2.setBounds(10, 145, 300, 30);
 		jsp3.setBounds(10, 185, 300, 30);
 
 		RouteFirst.add(jsp1);
-		RouteFirst.add(rjsp1);
+		//RouteFirst.add(rjsp1);
 		RouteFirst.add(jsp2);
 		RouteFirst.add(jsp3);
 
@@ -238,6 +235,12 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		//	设置监听器
 		RouterC.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+				// 首先设置默认存在的参数变量
+				
+				
+				
+				
+				// 最后网格法需要添加的参量
 				if(RouterC.getSelectedIndex()==4 || RouterC.getSelectedIndex()==5){
 					RouteSecond.removeAll();
 					
@@ -704,7 +707,7 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 			this.setVisible(false);
 		}
 		if (e.getSource() == this.Concel) {
-
+			this.setVisible(false);
 		}
 		if (e.getSource() == this.Reset) {
 			

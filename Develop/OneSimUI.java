@@ -3,8 +3,6 @@
  **/
 package Develop;
 
-import gui.EventLogPanel;
-
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
@@ -16,7 +14,7 @@ import core.SimClock;
 public class OneSimUI extends DTNSimTextUI{
 	private long lastUpdateRt;									// real time of last ui update
 	private long startTime; 									// simulation start time
-	private  EventLog eventLog = new EventLog(this);
+	private  EventLog eventLog;
 	
 	/** How often the UI view is updated (milliseconds) */     
 	public static final long UI_UP_INTERVAL = 60000;
@@ -27,7 +25,11 @@ public class OneSimUI extends DTNSimTextUI{
 	 */
 	private void NewWindow() {
 		/**初始化图形界面*/
+		this.eventLog = new EventLog(this);
 		main = new Main_Window(eventLog);
+		scen.addMessageListener(eventLog);
+		scen.addConnectionListener(eventLog);
+		
 		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main.setVisible(true);	
 	}
@@ -122,8 +124,8 @@ public class OneSimUI extends DTNSimTextUI{
 		if (forced || (diff > UI_UP_INTERVAL)) {
 			// simulated seconds/second 
 			double ssps = ((SimClock.getTime() - lastUpdate)*1000) / diff;
-			print(String.format("%.1f %d: %.2f 1/s", dur, 
-					SimClock.getIntTime(),ssps));
+//			print(String.format("%.1f %d: %.2f 1/s", dur, 
+//					SimClock.getIntTime(),ssps));
 			
 			this.lastUpdateRt = System.currentTimeMillis();
 			this.lastUpdate = SimClock.getTime();

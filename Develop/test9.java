@@ -2,7 +2,11 @@ package Develop;
 
 import javax.swing.JFrame;  
 import javax.swing.JLabel;  
-  
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+
 public class test9 {  
     public static void main(String[] args) {  
         JFrame frame = new JFrame("Crystal");  
@@ -18,5 +22,13 @@ public class test9 {
         frame.add(enter);  
         frame.add(exit);  
         frame.setVisible(true);  
+	  	//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");				//	…Ë÷√∆§∑Ù
+        try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }  
 }  

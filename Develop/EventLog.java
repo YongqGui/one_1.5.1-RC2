@@ -98,6 +98,8 @@ public class EventLog extends JPanel
 		this.regExp = s.getSetting(EVENTS_RE_S, null);
 		
 		layout = new GridLayout(maxNrofEvents,1);
+	
+		//System.out.print(this.regExp); 		//	test
 
 		this.setLayout(layout);
 		if (this.regExp != null) {

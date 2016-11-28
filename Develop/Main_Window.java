@@ -5,9 +5,10 @@ package Develop;
 
 //import jat.application.orbitviewer.orbitviewerEvents;
 
-import gui.DTNSimGUI;
-import gui.EventLogPanel;
-import gui.InfoPanel;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.*;
 
@@ -15,35 +16,52 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.*;
 
-import ui.DTNSimTextUI;
+import core.SimClock;
 
 import java.awt.event.*;
 
 //import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 //import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
-import javax.swing.plaf.metal.MetalLookAndFeel;
+//import javax.swing.plaf.metal.MetalLookAndFeel;
 
 public class Main_Window extends JFrame implements ActionListener, ChangeListener{
+	private static final String PATH_GRAPHICS = "buttonGraphics/";	
+	private static final String ICON_PLAY = "Play16.gif";
+	private static final String ICON_PAUSE = "Pause16.gif";
+	private static final String ICON_REPORT = "Report.gif";
+	private static final String ICON_Stop = "Stop.gif";
+	private static final String ICON_Parameter = "Parameter.gif";	
 	/** Default width for the GUI window */
 	public static final int WIN_DEFAULT_WIDTH = 900;
 	/** Default height for the GUI window */
 	public static final int WIN_DEFAULT_HEIGHT = 700;
 
-	public JButton start;
+	public JPanel ButtonMenus;
+	public JButton playButton;
 	public JButton end;
-	public JButton pause;
 	public JButton report;
 	private static JSplitPane JSP1;
 	private static JSplitPane JSP2;
 	private static JSplitPane JSP3;
 	protected boolean simPaused = true;
+
 	public ActionListener e;
+
 
 	
 	public Main_Window(EventLog elp) {
 		super("卫星仿真系统");
-		setSize(WIN_DEFAULT_WIDTH,WIN_DEFAULT_HEIGHT);
 		
+		final String liquid =  "javax.swing.plaf.nimbus.NimbusLookAndFeel";
+	  	try {
+			UIManager.setLookAndFeel(liquid);
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}			//	设置皮肤
+	  	
+		setSize(WIN_DEFAULT_WIDTH,WIN_DEFAULT_HEIGHT);
 	    JPanel desktop = new JPanel();
 	    getContentPane().add(desktop);
 	    
@@ -74,26 +92,30 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	    fileMenus.add(mb);
 	    
 	    //设置用来放置一排按钮,这里和第一排肯定要用两个面板
-	    start = new JButton("开始");
-		start.addActionListener(this);
-	    pause = new JButton("暂停");
-	    pause.addActionListener(this);
-	    end = new JButton("结束");
+	    ButtonMenus = new JPanel();
+	    ButtonMenus.setLayout(new BoxLayout(ButtonMenus, BoxLayout.X_AXIS));
+	    playButton = addButton(simPaused ? ICON_PLAY : ICON_PAUSE);
+	    
+	    end = new JButton();
 	    end.addActionListener(this);
-	    report = new JButton("报告");
+	    end.setIcon(createImageIcon(ICON_Stop));
+	    //end.setContentAreaFilled(false);
+	    
+	    report = new JButton();
+	    report.setIcon(createImageIcon(ICON_REPORT));
+	    //report.setContentAreaFilled(false);
 	    report.addActionListener(this);
 	    
-	    JButton parameter = new JButton("参数");
+	    
+	    JButton parameter = new JButton();
+	    parameter.setIcon(createImageIcon(ICON_Parameter));
+	    //parameter.setContentAreaFilled(false);
         parameter.addActionListener(new ActionListener() {	//按钮出来之后要弹出参数配置界面
             public void actionPerformed(ActionEvent e) {
                 new RouterInfo();
             }
         });
-	    
-	    JPanel ButtonMenus = new JPanel();
-	    ButtonMenus.setLayout(new BoxLayout(ButtonMenus, BoxLayout.X_AXIS));
-	    ButtonMenus.add(start);
-	    ButtonMenus.add(pause);
+        
 	    ButtonMenus.add(end);
 	    ButtonMenus.add(report);
 	    ButtonMenus.add(parameter);
@@ -102,48 +124,38 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	  
 	    //---------------------------设置节点列表----------------------------//	  	
 	    JPanel NodeList = new JPanel();
-	    NodeList.setLayout(new GridLayout(20,1));
+	    NodeList.setLayout(new GridLayout(30,1));
 	    NodeList.setBorder(new TitledBorder("Nodes"));
-	    for (int i = 0; i<20; i++)
-	    	NodeList.add(new JButton("Node" + i));
+	    for (int i = 0; i<30; i++)
+	    	NodeList.add(new JButton("N" + i));
 	  
 	  
 	    JLabel label1=new JLabel("Label 1",JLabel.CENTER);  
  
 	    //---------------------------设置事件窗口----------------------------//
 	    JPanel Event = new JPanel();
-        Event.setLayout(new BoxLayout(Event,BoxLayout.Y_AXIS));	//	沿着Y轴进行布局
-	    
-//      JScrollPane EventLog = new JScrollPane();
-//	    EventLog.setBorder(new TitledBorder("输出事件窗口"));
-//	    EventLog.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
-//      DTNSimTextUI gui = new DTNSimTextUI();
-//		EventLog elp = new EventLog(null); 		// 原有系统事件窗口
+        Event.setLayout(new BoxLayout(Event,BoxLayout.Y_AXIS));						//	沿着Y轴进行布局
 		
 	    JSP1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,false,label1,new JScrollPane(elp));
-	    JSP1.setResizeWeight(0.8);							//设置splitPane1的分隔线位置，0.1是相对于splitPane1的大小而定。
+	    JSP1.setResizeWeight(0.8);													//	设置splitPane1的分隔线位置，0.1是相对于splitPane1的大小而定。
 	    
-        
-	    JSP2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,false,JSP1,NodeList);
+	    JScrollPane Jscrollp = new JScrollPane(NodeList);		
+	    Jscrollp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);	//	不用水平滚动轴
+	    JSP2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,false,JSP1,Jscrollp);
 	  	JSP2.setResizeWeight(0.99);
 	  	JSP3 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,false,fileMenus,JSP2);	
 	  	JSP3.setResizeWeight(0.01);
 
 	  	add(JSP3);
-//	  	UIManager.setLookAndFeel(javax.swing.plaf.metal.MetalLookAndFeel);				//	设置皮肤
-//	  	SwingUtilities.updateComponentTreeUI(com.sun.java.swing.plaf.windows.WindowsLookAndFeel);
+
 	}
 	  
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.start) {
-			this.simPaused = false;
+		if (e.getSource() == this.playButton) {
+			setPaused(simPaused);
 		}
 		else if (e.getSource() == this.end){
 			System.exit(0);
-		}
-		else if (e.getSource() == this.pause){
-			this.simPaused = true;
 		}
 
 	}
@@ -156,6 +168,34 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	
 	public boolean getPaused(){
 		return this.simPaused;
+	}
+	
+	private ImageIcon createImageIcon(String path) {
+		java.net.URL imgURL = getClass().getResource(PATH_GRAPHICS+path);
+		return new ImageIcon(imgURL);
+	}
+	
+	private JButton addButton(String iconPath) {
+		JButton button = new JButton(createImageIcon(iconPath));
+		button.addActionListener(this);
+		//button.setContentAreaFilled(false);
+		ButtonMenus.add(button);
+		return button;
+	}
+	
+	/**
+	 * Sets simulation to pause or play.
+	 * @param paused If true, simulation is put to pause
+	 */
+	public void setPaused(boolean paused) {
+		if (!paused) {
+			this.playButton.setIcon(createImageIcon(ICON_PLAY));
+			this.simPaused = true;
+		}
+		else {
+			this.playButton.setIcon(createImageIcon(ICON_PAUSE));
+			this.simPaused = false;
+		}
 	}
 }
 

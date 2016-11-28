@@ -115,8 +115,8 @@ public class test_MainWindow extends JFrame implements ActionListener, ChangeLis
 	  	JSP3.setResizeWeight(0.01);
 
 	  	add(JSP3);
-//		UIManager.setLookAndFeel(javax.swing.plaf.metal.MetalLookAndFeel);							//	…Ë÷√∆§∑Ù
-//	  	SwingUtilities.updateComponentTreeUI(com.sun.java.swing.plaf.windows.WindowsLookAndFeel);
+		//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");							//	…Ë÷√∆§∑Ù
+		//SwingUtilities.updateComponentTreeUI(com.sun.java.swing.plaf.windows.WindowsLookAndFeel);
 	}
 	  public static void main(String[] args) throws Exception {
 		    test_MainWindow main = new test_MainWindow();

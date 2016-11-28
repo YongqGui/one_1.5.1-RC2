@@ -23,14 +23,14 @@ public class ViewEvents implements ActionListener, ItemListener{
 	public void actionPerformed(ActionEvent actev) {
 
 		
-		if(actev.getSource() == main.pause){		// Áî·ÂÕæÔİÍ£
-			this.simPaused = true;
-		}
-		if(actev.getSource() == main.start) {
-			OneThread NewThread = new OneThread();  
-			Thread thread = new Thread(NewThread);  
-			thread.start(); 
-		}
+//		if(actev.getSource() == main.pause){		// Áî·ÂÕæÔİÍ£
+//			this.simPaused = true;
+//		}
+//		if(actev.getSource() == main.start) {
+//			OneThread NewThread = new OneThread();  
+//			Thread thread = new Thread(NewThread);  
+//			thread.start(); 
+//		}
 		if(actev.getSource() == main.end) {
 			System.exit(0);
 		}

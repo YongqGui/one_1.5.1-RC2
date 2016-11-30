@@ -9,13 +9,19 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import ui.DTNSimTextUI;
+import core.Settings;
 import core.SimClock;
 
 public class OneSimUI extends DTNSimTextUI{
 	private long lastUpdateRt;									// real time of last ui update
 	private long startTime; 									// simulation start time
 	private  EventLog eventLog;
-	
+	/** namespace of scenario settings ({@value})*/
+	public static final String SCENARIO_NS = "Scenario";
+	/** end time -setting id ({@value})*/
+	public static final String END_TIME_S = "endTime";
+	/** update interval -setting id ({@value})*/
+	public static final String UP_INT_S = "updateInterval";
 	/** How often the UI view is updated (milliseconds) */     
 	public static final long UI_UP_INTERVAL = 60000;
 	public Main_Window main;
@@ -69,11 +75,29 @@ public class OneSimUI extends DTNSimTextUI{
 
 	@Override
 	public void runSim(){
+		Settings s = new Settings(SCENARIO_NS);
 		
+		startGUI();
+		
+		while(main.getPaused() == true){			// 界面等待确定配置参数
+			try {
+				 synchronized (this){
+					wait(10);
+				 }
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		this.setParameter();
 		double simTime = SimClock.getTime();
 		double endTime = scen.getEndTime();
 		
-		startGUI();
+		// ----------------------- 用于测试参数 --------------------------------//
+		System.out.println("仿真时间"+"  "+endTime);
+		System.out.println("更新时间："+"  "+scen.getUpdateInterval());
+		// ----------------------- 用于测试参数 --------------------------------//
+		
 		
 		startTime = System.currentTimeMillis();
 		lastUpdateRt = startTime;
@@ -124,9 +148,6 @@ public class OneSimUI extends DTNSimTextUI{
 		if (forced || (diff > UI_UP_INTERVAL)) {
 			// simulated seconds/second 
 			double ssps = ((SimClock.getTime() - lastUpdate)*1000) / diff;
-//			print(String.format("%.1f %d: %.2f 1/s", dur, 
-//					SimClock.getIntTime(),ssps));
-			
 			this.lastUpdateRt = System.currentTimeMillis();
 			this.lastUpdate = SimClock.getTime();
 		}		
@@ -135,5 +156,16 @@ public class OneSimUI extends DTNSimTextUI{
 	private void print(String txt) {
 		System.out.println(txt);
 	}
-
+	
+	/**
+	 * 当从界面重新配置参数之后，将参数重新写入到scen中，更新相应参数，不妨碍原有程序读取。
+	 */
+	private void setParameter(){
+		Settings s = new Settings(SCENARIO_NS);
+		double interval =  s.getDouble(UP_INT_S);	//	更新时间
+		scen.setUpdateInterval(interval);
+		
+		double endTime = s.getDouble(END_TIME_S);	//	结束时间
+		scen.setEndTime(endTime);
+	}
 }

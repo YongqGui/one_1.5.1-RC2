@@ -1,5 +1,5 @@
 #-----------------
-#Thu Nov 24 19:08:10 CST 2016
+#Wed Nov 30 21:38:06 CST 2016
 Group4.movementModel=MapRouteMovement
 GUI.UnderlayImage.offset=64, 20
 SprayAndWaitRouter.nrofCopies=6
@@ -46,7 +46,7 @@ highspeedInterface.type=SimpleBroadcastInterface
 Events1.hosts=0,126
 Group.msgTtl=300
 Events.nrof=1
-Scenario.endTime=432000
+Scenario.endTime=43200
 Group5.groupID=t
 Group.nrofHosts=40
 Group4.routeFile=data/tram3.wkt
@@ -73,7 +73,7 @@ btInterface.transmitRange=10
 Group4.speed=7, 10
 MovementModel.rngSeed=1
 GUI.UnderlayImage.scale=4.75
-Group.router=DirectDeliveryRouter
+Group.router=FirstContactRouter
 Group.movementModel=ShortestPathMapBasedMovement
 Group4.nrofHosts=2
 Group5.bufferSize=50M

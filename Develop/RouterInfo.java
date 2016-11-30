@@ -24,7 +24,9 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 	public JButton Reset;
 	public JButton Concel;
 	public JComboBox RouterC;
-	
+	public JTextField simTime;
+	public JTextField interval;
+	public JTextField warmUp;
 	private static final String CONFIGURATION_FILE_LOCATION = 
 			"C:\\Users\\YongqGui\\Workspaces\\MyEclipse 2015 CI\\one_1.5.1-RC2\\default_settings.txt";		//	设置文件路径
 	
@@ -82,7 +84,7 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		//RouteFirst.setLayout(new GridLayout(8,1,10,10));
 		RouteFirst.setLayout(null);
 		//第一行
-	    JLabel label1=new JLabel("路由协议选择：",JLabel.RIGHT);
+	    JLabel label1=new JLabel("路由协议选择：",JLabel.LEFT);
 		RouterC = new JComboBox();
 		String[] description = {
 				    "FirstContactRouter", "DirectDeliveryRouter", 
@@ -92,27 +94,25 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		
 	    for(int i = 0; i < 6; i++)
 	    	RouterC.addItem(description[i]);
-	    
-		JPanel jsp1 = new JPanel();
-	    jsp1.setLayout(new BoxLayout(jsp1, BoxLayout.X_AXIS));
-	    jsp1.add(label1);
-	    jsp1.add(Box.createHorizontalStrut(30));
-	    jsp1.add(RouterC);	    
-	    jsp1.add(Box.createHorizontalGlue());
-		jsp1.add(Box.createHorizontalStrut(50));
 		
+		label1.setBounds(10, 25, 100, 30);
+		RouterC.setBounds(130, 25, 160, 30);
+		RouteFirst.add(label1);
+		RouteFirst.add(RouterC);
+
 		//		第二行：路由模式选择，指定路径还是逐跳路由？
 		JLabel rlabel1 = new JLabel("路由模式选择：",JLabel.LEFT);
-		JLabel rlabel2 = new JLabel("指定路径",JLabel.LEFT);
-		JLabel rlabel3 = new JLabel("逐跳确认",JLabel.LEFT);
+		JLabel rlabel2 = new JLabel("逐跳确认",JLabel.LEFT);
+		JLabel rlabel3 = new JLabel("指定路径",JLabel.LEFT);
 		ButtonGroup g = new ButtonGroup();
 	    JRadioButton	    rb1 = new JRadioButton("", false),
 	    					rb2 = new JRadioButton("", false);
+	    rb1.setSelected(true);
 	    g.add(rb1);
 	    g.add(rb2);
 	    
 		rlabel1.setBounds(10, 65, 100, 30);
-		rlabel2.setBounds(131,65, 55, 30);
+		rlabel2.setBounds(130,65, 55, 30);
 		rb1.setBounds(189,65, 20, 30);
 		rlabel3.setBounds(215,65, 55, 30);
 		rb2.setBounds(272,65,20, 30);
@@ -128,6 +128,7 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		ButtonGroup q = new ButtonGroup();
 	    JRadioButton	    qb1 = new JRadioButton("", false),
 	    					qb2 = new JRadioButton("", false);
+	    qb1.setSelected(true);
 	    q.add(qb1);
 	    q.add(qb2);
 	    qlabel1.setBounds(10, 105, 100, 30);
@@ -143,51 +144,46 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		RouteFirst.add(qb2);
 		
 		//第四行
-	    JLabel label2=new JLabel("Message大小：",JLabel.RIGHT);
-		final JTextField txt1 = new JTextField(5);
-		final JTextField txt2 = new JTextField(5);
+	    JLabel label2=new JLabel("消息大小：",JLabel.LEFT);
+		final JTextField txt1 = new JTextField("1");
+		final JTextField txt2 = new JTextField("10");
 		JLabel label21 = new JLabel("~",JLabel.CENTER);
 		JLabel label22 = new JLabel("M",JLabel.CENTER);
-		JPanel jsp2 = new JPanel();
-	    jsp2.setLayout(new BoxLayout(jsp2, BoxLayout.X_AXIS));
-		jsp2.add(label2);
-	    jsp2.add(Box.createHorizontalStrut(30));
-		jsp2.add(txt1);
-		jsp2.add(Box.createHorizontalStrut(5));
-		jsp2.add(label21);
-		jsp2.add(Box.createHorizontalStrut(5));
-		jsp2.add(txt2);
-		jsp2.add(Box.createHorizontalStrut(10));
-		jsp2.add(label22);
-	    jsp2.add(Box.createHorizontalGlue());
-		jsp2.add(Box.createHorizontalStrut(35));
 		
+		label2.setBounds(10, 145, 100, 30);
+		txt1.setBounds(130, 145, 60, 30);
+		label21.setBounds(190, 145, 10, 30);
+		txt2.setBounds(200, 145, 60, 30);
+		label22.setBounds(265, 145, 10, 30);
+		RouteFirst.add(label2);
+		RouteFirst.add(txt1);
+		RouteFirst.add(label21);
+		RouteFirst.add(txt2);
+		RouteFirst.add(label22);
 		//第五行
-	    JLabel label3=new JLabel("Message生存时间：",JLabel.RIGHT);
-		final JTextField txt3 = new JTextField(5);
-		final JTextField txt4 = new JTextField(5);
+	    JLabel label3=new JLabel("消息生存时间：",JLabel.LEFT);
+		final JTextField txt3 = new JTextField("1");
+		final JTextField txt4 = new JTextField("5");
 		JLabel label31 = new JLabel("~",JLabel.CENTER);
 		JLabel label32 = new JLabel("Min",JLabel.CENTER);
-		JPanel jsp3 = new JPanel();
-	    jsp3.setLayout(new BoxLayout(jsp3, BoxLayout.X_AXIS));
-		jsp3.add(label3);
-	    jsp3.add(Box.createHorizontalStrut(4));
-		jsp3.add(txt3);
-		jsp3.add(Box.createHorizontalStrut(5));
-		jsp3.add(label31);
-		jsp3.add(Box.createHorizontalStrut(5));
-		jsp3.add(txt4);
-		jsp3.add(Box.createHorizontalStrut(10));
-		jsp3.add(label32);
-	    jsp3.add(Box.createHorizontalGlue());
-		jsp3.add(Box.createHorizontalStrut(25));
+		
+		label3.setBounds(10, 185, 100, 30);
+		txt3.setBounds(130, 185, 60, 30);
+		label31.setBounds(190, 185, 10, 30);
+		txt4.setBounds(200, 185, 60, 30);
+		label32.setBounds(265, 185, 20, 30);
+		RouteFirst.add(label3);
+		RouteFirst.add(txt3);
+		RouteFirst.add(label31);
+		RouteFirst.add(txt4);
+		RouteFirst.add(label32);
 		
 		//第六行
 	    JLabel label4=new JLabel("节点缓存大小：",JLabel.LEFT);
 	    JLabel label5=new JLabel("M",JLabel.LEFT);
-		JTextField txt5 = new JTextField(5);
+		JTextField txt5 = new JTextField("1000");
 		label4.setBounds(10, 225, 100, 30);
-		txt5.setBounds(131,225, 123, 30);
+		txt5.setBounds(130,225, 130, 30);
 		label5.setBounds(265, 225, 20, 30);
 		RouteFirst.add(label4);
 		RouteFirst.add(txt5);
@@ -196,9 +192,9 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 	    //第七行
 	    JLabel label61=new JLabel("节点传输速率：",JLabel.LEFT);
 	    JLabel label62=new JLabel("kbps",JLabel.LEFT);
-		JTextField txt6 = new JTextField(5);
+		JTextField txt6 = new JTextField("100");
 		label61.setBounds(10, 265, 100, 30);
-		txt6.setBounds(131,265, 123, 30);
+		txt6.setBounds(130,265, 130, 30);
 		label62.setBounds(265, 265, 40, 30);
 		RouteFirst.add(label61);
 		RouteFirst.add(txt6);
@@ -206,26 +202,14 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		
 		//第八行
 	    JLabel label71=new JLabel("节点传输半径：",JLabel.LEFT);
-	    JLabel label72=new JLabel("m",JLabel.LEFT);
-		JTextField txt7 = new JTextField(5);
+	    JLabel label72=new JLabel("Km",JLabel.LEFT);
+		JTextField txt7 = new JTextField("5000");
 		label71.setBounds(10, 305, 100, 30);
-		txt7.setBounds(131,305, 123, 30);
+		txt7.setBounds(130,305, 130, 30);
 		label72.setBounds(265, 305, 40, 30);
 		RouteFirst.add(label71);
 		RouteFirst.add(txt7);
 		RouteFirst.add(label72);
-	    
-		jsp1.setBounds(10, 20, 300, 30);
-		//rjsp1.setBounds(10, 65, 300, 30);
-		jsp2.setBounds(10, 145, 300, 30);
-		jsp3.setBounds(10, 185, 300, 30);
-
-		RouteFirst.add(jsp1);
-		//RouteFirst.add(rjsp1);
-		RouteFirst.add(jsp2);
-		RouteFirst.add(jsp3);
-
-
 		
 		RouteFirst.setSize(320, 200);
 		//---------------------------设置二级路由参数页面----------------------------//			
@@ -287,8 +271,8 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		});
 		
 		jp1.setLayout(null);
-		RouteFirst.setBounds(10, 0, 320, 350);
-		RouteSecond.setBounds(330, 0, 320, 350);
+		RouteFirst.setBounds(10, 0, 330, 350);
+		RouteSecond.setBounds(340, 0, 330, 350);
 		jp1.add(RouteFirst);
 		jp1.add(RouteSecond);
 		
@@ -303,113 +287,85 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		CacheFirst.setLayout(null);
 		//	第一行
 	    JLabel label1=new JLabel("逐跳确认",JLabel.LEFT);
-
+	    JLabel label2=new JLabel("快速转发",JLabel.LEFT);
 	    
 	    ButtonGroup g = new ButtonGroup();
 	    JRadioButton	    rb1 = new JRadioButton("", false),
 	    					rb2 = new JRadioButton("", false);
+	    rb1.setSelected(true);
 	    g.add(rb1);
 	    g.add(rb2);
-		
-	    JPanel jsp1 = new JPanel();
-	    jsp1.setLayout(new BoxLayout(jsp1, BoxLayout.X_AXIS));
-	    jsp1.add(label1);
-	    jsp1.add(rb1);
-
 	    
-	    //  第二行
-	    JLabel label2=new JLabel("快速转发",JLabel.LEFT);
-	    JPanel jsp2 = new JPanel();
-	    jsp2.setLayout(new BoxLayout(jsp2,BoxLayout.X_AXIS));
-	    jsp2.add(label2);
-	    jsp2.add(rb2);
-
+	    label1.setBounds(10, 20, 60, 30);
+	    rb1.setBounds(70, 20, 20, 30);
+	    label2.setBounds(110, 20, 60, 30);
+	    rb2.setBounds(170, 20, 20, 30);
+	    CacheFirst.add(label1);
+	    CacheFirst.add(rb1);
+	    CacheFirst.add(label2);
+	    CacheFirst.add(rb2);
 	    
 	    // 第三行
 	    JLabel label3=new JLabel("节点缓存大小：",JLabel.LEFT);
-		JTextField txt3 = new JTextField(5);
-		JLabel label31 = new JLabel("M",JLabel.CENTER);
-		JPanel jsp3 = new JPanel();
-	    jsp3.setLayout(new BoxLayout(jsp3, BoxLayout.X_AXIS));
-	    jsp3.add(label3);
-	    jsp3.add(Box.createHorizontalStrut(30));
-	    jsp3.add(txt3);
-		jsp3.add(Box.createHorizontalStrut(10));
-	    jsp3.add(label31);
-	    jsp3.add(Box.createHorizontalGlue());
-		jsp3.add(Box.createHorizontalStrut(54));
+		JTextField txt3 = new JTextField("1000");
+		JLabel label31 = new JLabel("M",JLabel.LEFT);		
+		label3.setBounds(10, 60, 100, 30);
+		txt3.setBounds(130,60, 130, 30);
+		label31.setBounds(265, 60, 20, 30);
+		CacheFirst.add(label3);
+		CacheFirst.add(txt3);
+		CacheFirst.add(label31);
 
 	    
 	    // 第四行
 	    JLabel label4 = new JLabel("文件请求间隔：",JLabel.LEFT);
-		JTextField txt4 = new JTextField(5);
-		JLabel label41 = new JLabel("Min",JLabel.CENTER);
-		JPanel jsp4 = new JPanel();
-	    jsp4.setLayout(new BoxLayout(jsp4, BoxLayout.X_AXIS));
-	    jsp4.add(label4);
-	    jsp4.add(Box.createHorizontalStrut(30));
-	    jsp4.add(txt4);
-		jsp4.add(Box.createHorizontalStrut(10));
-	    jsp4.add(label41);
-	    jsp4.add(Box.createHorizontalGlue());
-		jsp4.add(Box.createHorizontalStrut(44));
+		JTextField txt4 = new JTextField("1");
+		JLabel label41 = new JLabel("Min",JLabel.LEFT);
 
+		label4.setBounds(10, 100, 100, 30);
+		txt4.setBounds(130,100, 130, 30);
+		label41.setBounds(265, 100, 20, 30);
+		CacheFirst.add(label4);
+		CacheFirst.add(txt4);
+		CacheFirst.add(label41);
 	    
 	    // 第五行
-	    JLabel label5=new JLabel("文件请求大小：",JLabel.RIGHT);
-		final JTextField txt5 = new JTextField(5);
-		final JTextField txt51 = new JTextField(5);
-		JLabel label51 = new JLabel("~",JLabel.CENTER);
-		JLabel label52 = new JLabel("M",JLabel.CENTER);
-		JPanel jsp5 = new JPanel();
-	    jsp5.setLayout(new BoxLayout(jsp5, BoxLayout.X_AXIS));
-		jsp5.add(label5);
-	    jsp5.add(Box.createHorizontalStrut(30));
-		jsp5.add(txt5);
-		jsp5.add(Box.createHorizontalStrut(5));
-		jsp5.add(label51);
-		jsp5.add(Box.createHorizontalStrut(5));
-		jsp5.add(txt51);
-		jsp5.add(Box.createHorizontalStrut(10));
-		jsp5.add(label52);
-	    jsp5.add(Box.createHorizontalGlue());
-		jsp5.add(Box.createHorizontalStrut(55));
+	    JLabel label5=new JLabel("文件请求大小：",JLabel.LEFT);
+		final JTextField txt5 = new JTextField("1");
+		final JTextField txt51 = new JTextField("10");
+		JLabel label51 = new JLabel("~",JLabel.LEFT);
+		JLabel label52 = new JLabel("M",JLabel.LEFT);
 
+		label5.setBounds(10, 140, 100, 30);
+		txt5.setBounds(130, 140, 60, 30);
+		label51.setBounds(190, 140, 10, 30);
+		txt51.setBounds(200, 140, 60, 30);
+		label52.setBounds(265, 140, 20, 30);
+		CacheFirst.add(label5);
+		CacheFirst.add(txt5);
+		CacheFirst.add(label51);
+		CacheFirst.add(txt51);
+		CacheFirst.add(label52);
 		
 	    // 第六行
 	    JLabel label6 = new JLabel("分片数目：",JLabel.LEFT);
-		JTextField txt6 = new JTextField(5);
-		JLabel label61 = new JLabel("个",JLabel.CENTER);
-		JPanel jsp6 = new JPanel();
-	    jsp6.setLayout(new BoxLayout(jsp6, BoxLayout.X_AXIS));
-	    jsp6.add(label6);
-	    jsp6.add(Box.createHorizontalStrut(56));
-	    jsp6.add(txt6);
-		jsp6.add(Box.createHorizontalStrut(10));
-	    jsp6.add(label61);
-	    jsp6.add(Box.createHorizontalGlue());
-		jsp6.add(Box.createHorizontalStrut(50));
-		
-		jsp1.setBounds(10, 20, 300, 30);
-		jsp2.setBounds(10, 65, 300, 30);
-		jsp3.setBounds(10, 105, 300, 30);
-		jsp4.setBounds(10, 145, 300, 30);
-		jsp5.setBounds(10, 185, 300, 30);
-		jsp6.setBounds(10, 225, 300, 30);
-	    CacheFirst.add(jsp1);
-	    CacheFirst.add(jsp2);
-	    CacheFirst.add(jsp3);
-	    CacheFirst.add(jsp4);
-		CacheFirst.add(jsp5);
-	    CacheFirst.add(jsp6);
+		JTextField txt6 = new JTextField("10");
+		JLabel label61 = new JLabel("个",JLabel.LEFT);
+		label6.setBounds(10, 180, 100, 30);
+		txt6.setBounds(130,180, 130, 30);
+		label61.setBounds(265, 180, 20, 30);
+		CacheFirst.add(label6);
+		CacheFirst.add(txt6);
+		CacheFirst.add(label61);
+
 	    
 		//---------------------------设置二级缓存参数页面----------------------------//			
 		JPanel CacheSecond = new JPanel();
 		CacheSecond.setBorder(new TitledBorder("二级配置界面"));
 		
 		jp2.setLayout(null);
-		CacheFirst.setBounds(10, 0, 320, 350);
-		CacheSecond.setBounds(330, 0, 320, 350);
+		CacheFirst.setBounds(10, 0, 330, 350);
+		CacheSecond.setBounds(340, 0, 330, 350);
 		jp2.add(CacheFirst);
 		jp2.add(CacheSecond);
 		
@@ -426,7 +382,7 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		MovementFirst.setLayout(null);
 		
 		//第一行
-	    JLabel label1=new JLabel("星座配置：",JLabel.RIGHT);
+	    JLabel label1=new JLabel("星座配置：",JLabel.LEFT);
 		JComboBox WalkerC = new JComboBox();
 		String[] description = {
 				    "Walker1", "Walker2","Walker3","Walker4",
@@ -435,17 +391,14 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 	    for(int i = 0; i < 4; i++)
 	    	WalkerC.addItem(description[i]);
 	    
-		JPanel jsp1 = new JPanel();
-	    jsp1.setLayout(new BoxLayout(jsp1, BoxLayout.X_AXIS));
-	    jsp1.add(label1);
-	    jsp1.add(Box.createHorizontalStrut(30));
-	    jsp1.add(WalkerC);	    
-	    jsp1.add(Box.createHorizontalGlue());
-		jsp1.add(Box.createHorizontalStrut(40));
+	    label1.setBounds(10, 25, 100, 30);
+	    WalkerC.setBounds(130, 25, 120, 30);
+	    MovementFirst.add(label1);
+	    MovementFirst.add(WalkerC);
 
 		
 		//  第二行
-	    JLabel label2=new JLabel("轨道模型：",JLabel.RIGHT);
+	    JLabel label2=new JLabel("轨道模型：",JLabel.LEFT);
 		JComboBox OrbitC = new JComboBox();
 		String[] description1 = {
 				    "TwoBody1", "TwoBody2","TwoBody3","TwoBody4",
@@ -454,86 +407,23 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 	    for(int i = 0; i < 4; i++)
 	    	OrbitC.addItem(description1[i]);
 	    
-		JPanel jsp2 = new JPanel();
-	    jsp2.setLayout(new BoxLayout(jsp2, BoxLayout.X_AXIS));
-	    jsp2.add(label2);
-	    jsp2.add(Box.createHorizontalStrut(30));
-	    jsp2.add(OrbitC);	    
-	    jsp2.add(Box.createHorizontalGlue());
-		jsp2.add(Box.createHorizontalStrut(50));
+	    label2.setBounds(10, 65, 100, 30);
+	    OrbitC.setBounds(130, 65, 120, 30);
+	    MovementFirst.add(label2);
+	    MovementFirst.add(OrbitC);
 
 		
 		//  第三行
 	    JLabel label3 = new JLabel("节点数目：",JLabel.LEFT);
-		JTextField txt3 = new JTextField(5);
-		JLabel label31 = new JLabel("个",JLabel.CENTER);
-		JPanel jsp3 = new JPanel();
-	    jsp3.setLayout(new BoxLayout(jsp3, BoxLayout.X_AXIS));
-	    jsp3.add(label3);
-	    jsp3.add(Box.createHorizontalStrut(30));
-	    jsp3.add(txt3);
-		jsp3.add(Box.createHorizontalStrut(10));
-	    jsp3.add(label31);
-	    jsp3.add(Box.createHorizontalGlue());
-		jsp3.add(Box.createHorizontalStrut(60));
+		JTextField txt3 = new JTextField("50");
+		JLabel label31 = new JLabel("个",JLabel.LEFT);
+	    label3.setBounds(10, 105, 100, 30);
+	    txt3.setBounds(130, 105, 120, 30);
+	    label31.setBounds(255, 105, 20, 30);
+	    MovementFirst.add(label3);
+	    MovementFirst.add(txt3);
+	    MovementFirst.add(label31);
 
-	    
-//	    //  第四行
-//	    JLabel label4 = new JLabel("轨道平面数目：",JLabel.LEFT);
-//		JTextField txt4 = new JTextField(5);
-//		JLabel label41 = new JLabel("个",JLabel.CENTER);
-//		JPanel jsp4 = new JPanel();
-//	    jsp4.setLayout(new BoxLayout(jsp4, BoxLayout.X_AXIS));
-//	    jsp4.add(label4);
-//	    jsp4.add(Box.createHorizontalStrut(4));
-//	    jsp4.add(txt4);
-//		jsp4.add(Box.createHorizontalStrut(10));
-//	    jsp4.add(label41);
-//	    jsp4.add(Box.createHorizontalGlue());
-//		jsp4.add(Box.createHorizontalStrut(60));
-//
-//	    
-//	    //  第五行
-//	    JLabel label5 = new JLabel("轨道半径：",JLabel.LEFT);
-//		JTextField txt5 = new JTextField(5);
-//		JLabel label51 = new JLabel("Km",JLabel.CENTER);
-//		JPanel jsp5 = new JPanel();
-//	    jsp5.setLayout(new BoxLayout(jsp5, BoxLayout.X_AXIS));
-//	    jsp5.add(label5);
-//	    jsp5.add(Box.createHorizontalStrut(30));
-//	    jsp5.add(txt5);
-//		jsp5.add(Box.createHorizontalStrut(10));
-//	    jsp5.add(label51);
-//	    jsp5.add(Box.createHorizontalGlue());
-//		jsp5.add(Box.createHorizontalStrut(54));
-//
-//		
-//		//  第六行
-//	    JLabel label6 = new JLabel("离心率：",JLabel.LEFT);
-//		JTextField txt6 = new JTextField(5);
-//		//JLabel label61 = new JLabel("个",JLabel.CENTER);
-//		JPanel jsp6 = new JPanel();
-//	    jsp6.setLayout(new BoxLayout(jsp6, BoxLayout.X_AXIS));
-//	    jsp6.add(label6);
-//	    jsp6.add(Box.createHorizontalStrut(43));
-//	    jsp6.add(txt6);
-//		jsp6.add(Box.createHorizontalStrut(10));
-//	    //jsp6.add(label61);
-//	    jsp6.add(Box.createHorizontalGlue());
-//		jsp6.add(Box.createHorizontalStrut(73));
-		
-		jsp1.setBounds(10, 20, 300, 30);
-		jsp2.setBounds(10, 65, 300, 30);
-		jsp3.setBounds(10, 105, 300, 30);
-//		jsp4.setBounds(10, 145, 300, 30);
-//		jsp5.setBounds(10, 185, 300, 30);
-//		jsp6.setBounds(10, 225, 300, 30);
-		MovementFirst.add(jsp1);
-		MovementFirst.add(jsp2);
-	    MovementFirst.add(jsp3);
-//	    MovementFirst.add(jsp4);
-//	    MovementFirst.add(jsp5);
-//	    MovementFirst.add(jsp6);
 		
 		//---------------------------设置二级缓存参数页面----------------------------//			
 		JPanel MovementSecond = new JPanel();
@@ -580,8 +470,8 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		
 		//jp3.setLayout(new GridLayout(1,2));
 		jp3.setLayout(null);
-		MovementFirst.setBounds(10, 0, 320, 350);
-		MovementSecond.setBounds(330, 0, 320, 350);
+		MovementFirst.setBounds(10, 0, 330, 350);
+		MovementSecond.setBounds(340, 0, 330, 350);
 		jp3.add(MovementFirst);
 		jp3.add(MovementSecond);
 		
@@ -597,34 +487,37 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		
 		
 		//第一行
-	    JLabel label1=new JLabel("链路模型：",JLabel.RIGHT);
-		JComboBox LinkC = new JComboBox();
-		String[] description = {
-				    "激光头", "微波链路",
-		};
+	    JLabel label1=new JLabel("链路模型：",JLabel.RIGHT);		
+		JLabel label2 = new JLabel("激光头");
+		JTextField text1 = new JTextField("1");
+		JLabel label3 = new JLabel("微波链路");
+		JTextField text2 = new JTextField("1");
+		JLabel label4 = new JLabel("个");
+		JLabel label5 = new JLabel("个");
 		
-	    for(int i = 0; i < 2; i++)
-	    	LinkC.addItem(description[i]);
-	    
-		JPanel jsp1 = new JPanel();
-	    jsp1.setLayout(new BoxLayout(jsp1, BoxLayout.X_AXIS));
-	    jsp1.add(label1);
-	    jsp1.add(Box.createHorizontalStrut(30));
-	    jsp1.add(LinkC);	    
-	    jsp1.add(Box.createHorizontalGlue());
-		jsp1.add(Box.createHorizontalStrut(50));
+		label1.setBounds(10, 20, 60, 30);
+		label2.setBounds(100, 20, 60, 30);
+		text1.setBounds(170, 20, 60, 30);
+		label4.setBounds(240, 20, 20, 30);
+		label3.setBounds(100, 60, 60, 30);
+		text2.setBounds(170, 60, 60, 30);
+		label5.setBounds(240, 60, 20, 30);
 		
-		jsp1.setBounds(10, 20, 300, 30);
-		LinkFirst.add(jsp1);
-		
+		LinkFirst.add(label1);
+		LinkFirst.add(label2);
+		LinkFirst.add(text1);
+		LinkFirst.add(label3);
+		LinkFirst.add(text2);
+		LinkFirst.add(label4);
+		LinkFirst.add(label5);
 		
 		//---------------------------设置二级缓存参数页面----------------------------//			
 		JPanel LinkSecond = new JPanel();
 		LinkSecond.setBorder(new TitledBorder("二级配置界面"));
 		
 		jp4.setLayout(null);
-		LinkFirst.setBounds(10, 0, 320, 350);
-		LinkSecond.setBounds(330, 0, 320, 350);
+		LinkFirst.setBounds(10, 0, 330, 350);
+		LinkSecond.setBounds(340, 0, 330, 350);
 		jp4.add(LinkFirst);
 		jp4.add(LinkSecond);
 		
@@ -640,43 +533,56 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		
 		//第一行
 	    JLabel label1 = new JLabel("三维边界：",JLabel.RIGHT);
-		JTextField txt1 = new JTextField(5);
-		JTextField txt2 = new JTextField(5);
-		JTextField txt3 = new JTextField(5);	    
+		JTextField txt1 = new JTextField("10000");
+		JTextField txt2 = new JTextField("10000");
+		JTextField txt3 = new JTextField("10000");	    
+		JLabel km = new JLabel("Km");
 
 		label1.setBounds(0, 25, 80, 30);
 		txt1.setBounds(95, 25, 50, 30);
 		txt2.setBounds(155, 25, 50, 30);
 		txt3.setBounds(215, 25, 50, 30);
+		km.setBounds(270, 25, 20, 30);
 		LinkFirst.add(label1);
 		LinkFirst.add(txt1);
 		LinkFirst.add(txt2);
 		LinkFirst.add(txt3);
+		LinkFirst.add(km);
 		
 		//第二行 仿真时间设置
 		JLabel label2 = new JLabel("仿真时间：",JLabel.RIGHT);
-		JTextField simTime = new JTextField();
+		JLabel time = new JLabel("s");
+		simTime = new JTextField("43200",JTextField.CENTER);
+		simTime.addActionListener(this);
 		label2.setBounds(0, 65, 80, 30);
 		simTime.setBounds(95, 65, 170, 30);
+		time.setBounds(270, 65, 20, 30);
 		LinkFirst.add(label2);
 		LinkFirst.add(simTime);
+		LinkFirst.add(time);
+		
 		
 		//第三行 仿真步长
 		JLabel label3 = new JLabel("仿真步长：",JLabel.RIGHT);
-		JTextField interval = new JTextField();
+		JLabel time2 = new JLabel("s");
+		interval = new JTextField("0.1");
 		label3.setBounds(0, 105, 80, 30);
 		interval.setBounds(95, 105, 170, 30);
+		time2.setBounds(270, 105, 20, 30);
 		LinkFirst.add(label3);
 		LinkFirst.add(interval);
+		LinkFirst.add(time2);
 		
 		//第四行 预热时间
 		JLabel label4 = new JLabel("预热时间：",JLabel.RIGHT);
-		JTextField preTime = new JTextField();
+		JLabel time3 = new JLabel("s");
+		warmUp = new JTextField("1000");
 		label4.setBounds(0, 145, 80, 30);
-		preTime.setBounds(95, 145, 170, 30);
+		warmUp.setBounds(95, 145, 170, 30);
+		time3.setBounds(270, 145, 20, 30);
 		LinkFirst.add(label4);
-		LinkFirst.add(preTime);
-		
+		LinkFirst.add(warmUp);
+		LinkFirst.add(time3);
 		
 		
 		//---------------------------设置二级缓存参数页面----------------------------//			
@@ -684,8 +590,8 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 		LinkSecond.setBorder(new TitledBorder("二级配置界面"));
 		
 		jp5.setLayout(null);
-		LinkFirst.setBounds(10, 0, 320, 350);
-		LinkSecond.setBounds(330, 0, 320, 350);
+		LinkFirst.setBounds(10, 0, 330, 350);
+		LinkSecond.setBounds(340, 0, 330, 350);
 		jp5.add(LinkFirst);
 		jp5.add(LinkSecond);
 		
@@ -741,8 +647,10 @@ public class RouterInfo extends JFrame implements ActionListener, ChangeListener
 
 	public void RouteParaSet(){
 		Settings settings = new Settings();
-		//settings.setSetting(CONFIGURATION_FILE_LOCATION,"Group.router",String.valueOf(RouterC.getSelectedItem()));
-		
+		settings.setSetting(CONFIGURATION_FILE_LOCATION,"Group.router",String.valueOf(RouterC.getSelectedItem()));
+		settings.setSetting(CONFIGURATION_FILE_LOCATION,"Scenario.endTime",String.valueOf(simTime.getText()));
+		settings.setSetting(CONFIGURATION_FILE_LOCATION,"Scenario.updateInterval",String.valueOf(interval.getText()));
+		settings.setSetting(CONFIGURATION_FILE_LOCATION,"MovementModel.warmup",String.valueOf(warmUp.getText()));
 	}
 
 }

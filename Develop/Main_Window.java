@@ -6,6 +6,7 @@ package Develop;
 //import jat.application.orbitviewer.orbitviewerEvents;
 
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -20,17 +21,17 @@ import core.SimClock;
 
 import java.awt.event.*;
 
-//import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-//import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
-//import javax.swing.plaf.metal.MetalLookAndFeel;
-
 public class Main_Window extends JFrame implements ActionListener, ChangeListener{
 	private static final String PATH_GRAPHICS = "buttonGraphics/";	
 	private static final String ICON_PLAY = "Play16.gif";
 	private static final String ICON_PAUSE = "Pause16.gif";
+	private static final String ICON_FastForward = "FastForward16.gif";
 	private static final String ICON_REPORT = "Report.gif";
 	private static final String ICON_Stop = "Stop.gif";
 	private static final String ICON_Parameter = "Parameter.gif";	
+	private static final String ICON_Bigger = "Bigger.gif";
+	private static final String ICON_Smaller = "Smaller.gif";
+	
 	/** Default width for the GUI window */
 	public static final int WIN_DEFAULT_WIDTH = 900;
 	/** Default height for the GUI window */
@@ -40,6 +41,10 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	public JButton playButton;
 	public JButton end;
 	public JButton report;
+	public JButton FastForward;
+	public JButton parameter;
+	public JButton Smaller;
+	public JButton Bigger;
 	private static JSplitPane JSP1;
 	private static JSplitPane JSP2;
 	private static JSplitPane JSP3;
@@ -60,6 +65,8 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}			//	设置皮肤
+	  	//this.getContentPane().setBackground(new Color(100,100,100));			// 设置背景颜色
+	  	
 	  	
 		setSize(WIN_DEFAULT_WIDTH,WIN_DEFAULT_HEIGHT);
 	    JPanel desktop = new JPanel();
@@ -106,8 +113,19 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	    //report.setContentAreaFilled(false);
 	    report.addActionListener(this);
 	    
+	    FastForward = new JButton();
+	    FastForward.setIcon(createImageIcon(ICON_FastForward));
+	    FastForward.addActionListener(this);
 	    
-	    JButton parameter = new JButton();
+	    Smaller = new JButton();
+	    Smaller.setIcon(createImageIcon(ICON_Smaller));
+	    Smaller.addActionListener(this);
+	    
+	    Bigger = new JButton();
+	    Bigger.setIcon(createImageIcon(ICON_Bigger));
+	    Bigger.addActionListener(this);
+
+	    parameter = new JButton();
 	    parameter.setIcon(createImageIcon(ICON_Parameter));
 	    //parameter.setContentAreaFilled(false);
         parameter.addActionListener(new ActionListener() {	//按钮出来之后要弹出参数配置界面
@@ -117,6 +135,9 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
         });
         
 	    ButtonMenus.add(end);
+	    ButtonMenus.add(FastForward);
+	    ButtonMenus.add(Smaller);
+	    ButtonMenus.add(Bigger);
 	    ButtonMenus.add(report);
 	    ButtonMenus.add(parameter);
 	    fileMenus.add(ButtonMenus);
@@ -130,7 +151,7 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	    	NodeList.add(new JButton("N" + i));
 	  
 	  
-	    JLabel label1=new JLabel("Label 1",JLabel.CENTER);  
+	    JLabel label1=new JLabel("",JLabel.CENTER);  
  
 	    //---------------------------设置事件窗口----------------------------//
 	    JPanel Event = new JPanel();
@@ -147,6 +168,7 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	  	JSP3.setResizeWeight(0.01);
 
 	  	add(JSP3);
+
 
 	}
 	  

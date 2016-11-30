@@ -411,5 +411,18 @@ public class SimScenario implements Serializable {
 	public World getWorld() {
 		return this.world;
 	}
-
+	
+	/**
+	 * 设置仿真更新时间
+	 */
+	public void setUpdateInterval(double interval){
+		this.updateInterval = interval;
+	}
+	
+	/**
+	 * 设置仿真结束时间
+	 */
+	public void setEndTime(double EndTime){
+		this.endTime = EndTime;
+	}
 }

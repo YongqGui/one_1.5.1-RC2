@@ -4,10 +4,9 @@
 package Develop;
 
 import java.lang.reflect.InvocationTargetException;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
+import com.sun.j3d.utils.applet.MainFrame;
 import ui.DTNSimTextUI;
 import core.Settings;
 import core.SimClock;
@@ -38,8 +37,21 @@ public class OneSimUI extends DTNSimTextUI{
 		
 		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main.setVisible(true);	
+		
+		//start3D();
 	}
-	
+
+	private void start3D(){
+			SwingUtilities.invokeLater(new Runnable() {
+			    public void run() {
+					try {
+						new MainFrame(new MoveGlobe(), 480, 480);
+					} catch (AssertionError e) {
+						processAssertionError(e);
+					}
+			    }
+			});
+	}
 	/**
 	 * Starts the simulation.
 	 */
@@ -66,6 +78,7 @@ public class OneSimUI extends DTNSimTextUI{
 			e.printStackTrace();
 			System.exit(-1);
 		}
+		
 	}
 	
 	protected void processAssertionError(AssertionError e) {

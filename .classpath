@@ -35,5 +35,8 @@
 	<classpathentry kind="lib" path="C:/Users/YongqGui/Workspaces/MyEclipse 2015 CI/jME3/lib/stack-alloc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/YongqGui/Workspaces/MyEclipse 2015 CI/jME3/lib/vecmath.jar"/>
 	<classpathentry kind="lib" path="C:/Users/YongqGui/Workspaces/MyEclipse 2015 CI/jME3/lib/xmlpull-xpp3.jar"/>
+	<classpathentry kind="lib" path="/JAVA3D/lib/ext/j3dcore.jar"/>
+	<classpathentry kind="lib" path="/JAVA3D/lib/ext/j3dutils.jar"/>
+	<classpathentry kind="lib" path="/JAVA3D/lib/ext/vecmath.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

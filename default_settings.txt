@@ -1,5 +1,5 @@
 #-----------------
-#Fri Dec 02 22:08:11 CST 2016
+#Sat Dec 03 12:25:34 CST 2016
 Group4.movementModel=MapRouteMovement
 GUI.UnderlayImage.offset=64, 20
 SprayAndWaitRouter.nrofCopies=6
@@ -72,12 +72,12 @@ Group4.routeType=1
 btInterface.transmitRange=10
 Group4.speed=7, 10
 MovementModel.rngSeed=1
-GUI.UnderlayImage.scale=4.75
 Group.router=FirstContactRouter
+GUI.UnderlayImage.scale=4.75
 Group.movementModel=ShortestPathMapBasedMovement
 Group4.nrofHosts=2
 Group5.bufferSize=50M
-highspeedInterface.transmitRange=1000
 Group.bufferSize=5M
+highspeedInterface.transmitRange=1000
 Group6.movementModel=MapRouteMovement
 ProphetRouter.secondsInTimeUnit=30

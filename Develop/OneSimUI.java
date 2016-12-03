@@ -4,12 +4,17 @@
 package Develop;
 
 import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
 import com.sun.j3d.utils.applet.MainFrame;
+
 import ui.DTNSimTextUI;
 import core.Settings;
 import core.SimClock;
+
+import java.awt.*;
 
 public class OneSimUI extends DTNSimTextUI{
 	private long lastUpdateRt;									// real time of last ui update
@@ -36,21 +41,23 @@ public class OneSimUI extends DTNSimTextUI{
 		scen.addConnectionListener(eventLog);
 		
 		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		main.setLocationRelativeTo(null);
 		main.setVisible(true);	
 		
-		//start3D();
+		start3D();
 	}
 
 	private void start3D(){
-			SwingUtilities.invokeLater(new Runnable() {
-			    public void run() {
-					try {
-						new MainFrame(new MoveGlobe(), 480, 480);
-					} catch (AssertionError e) {
-						processAssertionError(e);
-					}
-			    }
-			});
+	    JFrame frame = new JFrame();
+	    frame.setSize(460, 460);
+	    frame.setTitle("三维场景");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    MoveGlobe applet = new MoveGlobe();
+	    applet.init();
+	    frame.getContentPane().add(applet);
+	    //frame.setLocationRelativeTo(main);
+	    frame.setLocation(220,160);
+	    frame.setVisible(true);
 	}
 	/**
 	 * Starts the simulation.
@@ -91,7 +98,6 @@ public class OneSimUI extends DTNSimTextUI{
 		Settings s = new Settings(SCENARIO_NS);
 		
 		startGUI();
-		
 		while(main.getPaused() == true){			// 界面等待确定配置参数
 			try {
 				 synchronized (this){

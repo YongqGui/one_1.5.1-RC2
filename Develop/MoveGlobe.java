@@ -1,15 +1,22 @@
 package Develop;
 
+import javax.swing.JApplet;
+import javax.swing.JFrame;
 import javax.vecmath.*;
+
 import java.awt.*;
+
 import javax.media.j3d.*;
+
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.sun.j3d.utils.universe.*;
 import com.sun.j3d.utils.geometry.*;
 import com.sun.j3d.utils.image.*;
 import com.sun.j3d.utils.behaviors.mouse.*;
+
 import java.applet.*;
+
 import com.sun.j3d.utils.applet.MainFrame;
 
 public class MoveGlobe extends Applet {

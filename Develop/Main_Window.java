@@ -33,9 +33,9 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	private static final String ICON_Smaller = "Smaller.gif";
 	
 	/** Default width for the GUI window */
-	public static final int WIN_DEFAULT_WIDTH = 900;
+	public static final int WIN_DEFAULT_WIDTH = 1000;
 	/** Default height for the GUI window */
-	public static final int WIN_DEFAULT_HEIGHT = 700;
+	public static final int WIN_DEFAULT_HEIGHT = 750;
 
 	public JPanel ButtonMenus;
 	public JButton playButton;

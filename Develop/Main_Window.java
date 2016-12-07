@@ -9,6 +9,12 @@ import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.*;
@@ -20,6 +26,7 @@ import javax.swing.event.*;
 import core.SimClock;
 
 import java.awt.event.*;
+import java.io.File;
 
 public class Main_Window extends JFrame implements ActionListener, ChangeListener{
 	private static final String PATH_GRAPHICS = "buttonGraphics/";	
@@ -49,7 +56,10 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	private static JSplitPane JSP2;
 	private static JSplitPane JSP3;
 	protected boolean simPaused = true;
-
+    private JFileChooser chooser;
+	private JTabbedPane tabs = new JTabbedPane();
+	private JDesktopPane desktopPane;
+	
 	public ActionListener e;
 
 
@@ -65,20 +75,22 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}			//	设置皮肤
-	  	//this.getContentPane().setBackground(new Color(100,100,100));			// 设置背景颜色
+	  	this.getContentPane().setBackground(Color.lightGray);			// 设置背景颜色
 	  	
 	  	
 		setSize(WIN_DEFAULT_WIDTH,WIN_DEFAULT_HEIGHT);
 	    JPanel desktop = new JPanel();
 	    getContentPane().add(desktop);
 	    
+        chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File("."));
 	    final JMenu[] menus = {
 	    		new JMenu("File   "), new JMenu("Edit   "),
 				new JMenu("Properties   "),new JMenu("Tools   "),
 				new JMenu("Windows   "),new JMenu("Help   "),
 	    };
 	    final JMenuItem[] items = {
-			  	new JMenuItem("Fee"), new JMenuItem("Fi"),
+			  	new JMenuItem("open"), new JMenuItem("Fi"),
 				new JMenuItem("Fo"),  new JMenuItem("Zip"),
 				new JMenuItem("Zap"), new JMenuItem("Zot"),
 				new JMenuItem("Olly"), new JMenuItem("Oxen"),
@@ -87,6 +99,19 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 				new JMenuItem("Olly"), new JMenuItem("Oxen"),
 				new JMenuItem("Free"),
 	    };
+	    
+//	    open.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent arg0) {
+//                // TODO Auto-generated method stub
+//                int result = chooser.showOpenDialog(null);
+//                if(result == JFileChooser.APPROVE_OPTION){
+//                    String name = chooser.getSelectedFile().getPath();
+//                    label.setIcon(new ImageIcon(name));
+//                }
+//           }
+//        });
+	    
 	    for (int i=0;i<items.length; i++){
 			menus[i%6].add(items[i]);
 	    };
@@ -150,14 +175,39 @@ public class Main_Window extends JFrame implements ActionListener, ChangeListene
 	    for (int i = 0; i<30; i++)
 	    	NodeList.add(new JButton("N" + i));
 	  
-	  
-	    JLabel label1=new JLabel("",JLabel.CENTER);  
- 
+	    //---------------------------设置二维界面----------------------------//	  	
+		desktopPane = new JDesktopPane();
+		desktopPane.setBackground(Color.LIGHT_GRAY);
+		//System.out.println(desktopPane.getBackground());
+
+		
+		JInternalFrame internalFrame1 = new JInternalFrame("二维场景", true, true, true, true);
+		internalFrame1.setLocation(50, 50);
+		internalFrame1.setSize(500, 300);
+		internalFrame1.setVisible(true);
+		
+	    JLabel label = new JLabel();
+	    String name = "C:\\Users\\YongqGui\\Workspaces\\MyEclipse 2015 CI\\JAVA3D\\images\\earth.png";
+	    label.setIcon(new ImageIcon(name));
+	    internalFrame1.add(label);
+	    desktopPane.add("二维场景",internalFrame1);
+	    
+	    //---------------------------设置三维界面----------------------------//	  	
+		JInternalFrame internalFrame = new JInternalFrame("三维场景", true, true, true, true);
+		internalFrame.setLocation(20, 20);
+		internalFrame.setSize(500, 300);
+		internalFrame.setVisible(true);
+		
+	    MoveGlobe applet = new MoveGlobe();
+	    applet.init();
+	    internalFrame.getContentPane().add(applet);
+	    desktopPane.add("三维场景",internalFrame);
+	    
 	    //---------------------------设置事件窗口----------------------------//
 	    JPanel Event = new JPanel();
         Event.setLayout(new BoxLayout(Event,BoxLayout.Y_AXIS));						//	沿着Y轴进行布局
 		
-	    JSP1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,false,label1,new JScrollPane(elp));
+	    JSP1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,false,desktopPane,new JScrollPane(elp));
 	    JSP1.setResizeWeight(0.8);													//	设置splitPane1的分隔线位置，0.1是相对于splitPane1的大小而定。
 	    
 	    JScrollPane Jscrollp = new JScrollPane(NodeList);		

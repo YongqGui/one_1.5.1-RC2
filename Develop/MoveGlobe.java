@@ -2,24 +2,20 @@ package Develop;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.vecmath.*;
-
 import java.awt.*;
-
 import javax.media.j3d.*;
-
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.sun.j3d.utils.universe.*;
 import com.sun.j3d.utils.geometry.*;
 import com.sun.j3d.utils.image.*;
 import com.sun.j3d.utils.behaviors.mouse.*;
-
 import java.applet.*;
-
 import com.sun.j3d.utils.applet.MainFrame;
-
 public class MoveGlobe extends Applet {
+	
 //	public static void main(String[] args) {
 //		new MainFrame(new MoveGlobe(), 480, 480);
 //	}
@@ -55,8 +51,8 @@ public class MoveGlobe extends Applet {
 		root.addChild(spin);
 		// texture mapped globe
 		Appearance ap = createAppearance();
-		spin.addChild(new Sphere(0.5f, Primitive.GENERATE_TEXTURE_COORDS, 50, ap));			//这是创建一个球体
-		
+		spin.addChild(new Sphere(0.4f, Primitive.GENERATE_TEXTURE_COORDS, 50, ap));			//这是创建一个球体
+
 		//	添加轨道
 	    Transform3D tr1 = new Transform3D();						//Transform3D()表示一个4X4的双精度浮点数矩阵
 	    tr.setScale(0.8);
@@ -64,13 +60,13 @@ public class MoveGlobe extends Applet {
 	    TransformGroup tg1 = new TransformGroup(tr1);
 	    spin.addChild(tg1);
 	    
-	    Shape3D torus1 = new Torus(0.003, 0.8);
+	    Shape3D torus1 = new Torus(0.003, 0.6);
 	    Appearance ap1 = new Appearance();
 	    ap1.setMaterial(new Material());
 	    torus1.setAppearance(ap1);
 	    tg1.addChild(torus1);
 		
-	    Shape3D torus2 = new Torus(0.003, 0.8);
+	    Shape3D torus2 = new Torus(0.003, 0.6);
 	    ap1.setMaterial(new Material());
 	    ap1.setTransparencyAttributes(
 	    	      new TransparencyAttributes(TransparencyAttributes.BLENDED, 0.5f));

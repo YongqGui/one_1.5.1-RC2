@@ -5,7 +5,9 @@ package Develop;
 
 import java.lang.reflect.InvocationTargetException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import com.sun.j3d.utils.applet.MainFrame;
@@ -44,19 +46,33 @@ public class OneSimUI extends DTNSimTextUI{
 		main.setLocationRelativeTo(null);
 		main.setVisible(true);	
 		
-		start3D();
+		//start3D();
+		//start2D();
 	}
 
 	private void start3D(){
 	    JFrame frame = new JFrame();
-	    frame.setSize(460, 460);
+	    frame.setSize(560, 460);
 	    frame.setTitle("三维场景");
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    MoveGlobe applet = new MoveGlobe();
 	    applet.init();
 	    frame.getContentPane().add(applet);
-	    //frame.setLocationRelativeTo(main);
-	    frame.setLocation(220,160);
+	    frame.setLocation(260,160);
+	    frame.setVisible(true);
+	}
+	private void start2D(){
+		new earth2D();
+	    JFrame frame = new JFrame();
+	    frame.setSize(480, 300);
+	    frame.setTitle("二维场景");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    
+	    JLabel label = new JLabel();
+	    String name = "C:\\Users\\YongqGui\\Workspaces\\MyEclipse 2015 CI\\JAVA3D\\images\\earth.png";
+	    label.setIcon(new ImageIcon(name));
+	    frame.add(label);
+	    frame.setLocation(260,160);
 	    frame.setVisible(true);
 	}
 	/**
